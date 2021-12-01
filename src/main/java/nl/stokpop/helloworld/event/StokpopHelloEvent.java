@@ -147,7 +147,9 @@ public class StokpopHelloEvent extends EventAdapter<StokpopHelloEventContext> {
             .variable("perfana-hello-world-message", "Hello World!")
             .variable("perfana-hello-world-magic-number", "42");
 
-        variables.forEach(v -> builder.variable(v.getName(), v.getValue()));
+        String actuatorPropPrefix = eventContext.getActuatorPropPrefix();
+
+        variables.forEach(v -> builder.variable(actuatorPropPrefix + "-" + v.getName(), v.getValue()));
 
         EventMessage message = builder.build();
 

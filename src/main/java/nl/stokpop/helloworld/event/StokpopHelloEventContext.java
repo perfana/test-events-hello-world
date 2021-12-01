@@ -34,16 +34,18 @@ public class StokpopHelloEventContext extends EventContext {
     private final String helloMessage;
     private final String myCredentials;
     private final String myEventTags;
+    private final String actuatorPropPrefix;
     private final String actuatorBaseUrl;
     private final List<String> actuatorEnvProps;
 
-    protected StokpopHelloEventContext(EventContext context, String myRestService, Duration helloInitialSleep, String helloMessage, String myCredentials, String myEventTags, String actuatorBaseUrl, List<String> actuatorEnvProps) {
+    protected StokpopHelloEventContext(EventContext context, String myRestService, Duration helloInitialSleep, String helloMessage, String myCredentials, String myEventTags, String actuatorPropPrefix, String actuatorBaseUrl, List<String> actuatorEnvProps) {
         super(context, StokpopHelloEventFactory.class.getName(), true);
         this.myRestService = myRestService;
         this.helloInitialSleep = helloInitialSleep;
         this.helloMessage = helloMessage;
         this.myCredentials = myCredentials;
         this.myEventTags = myEventTags;
+        this.actuatorPropPrefix = actuatorPropPrefix;
         this.actuatorBaseUrl = actuatorBaseUrl;
         this.actuatorEnvProps = actuatorEnvProps;
     }
@@ -76,6 +78,7 @@ public class StokpopHelloEventContext extends EventContext {
             ", helloMessage='" + helloMessage + '\'' +
             ", myCredentials='" + myCredentials + '\'' +
             ", myEventTags='" + myEventTags + '\'' +
+            ", actuatorPropPrefix='" + actuatorPropPrefix + '\'' +
             ", actuatorBaseUrl='" + actuatorBaseUrl + '\'' +
             ", actuatorEnvProperties='" + actuatorEnvProps + '\'' +
             "} " + super.toString();
@@ -83,6 +86,9 @@ public class StokpopHelloEventContext extends EventContext {
 
     public String getActuatorBaseUrl() {
         return actuatorBaseUrl;
+    }
+    public String getActuatorPropPrefix() {
+        return actuatorPropPrefix;
     }
 
     public List<String> getActuatorEnvProperties() {

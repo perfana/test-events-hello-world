@@ -37,6 +37,7 @@ public class StokpopHelloEventConfig extends EventConfig {
     private String helloMessage = "Default Hello Message";
     private String myCredentials;
     private String myEventTags;
+    private String actuatorPropPrefix = "actuator";
     private String actuatorBaseUrl;
     private String actuatorEnvProperties;
 
@@ -67,13 +68,13 @@ public class StokpopHelloEventConfig extends EventConfig {
     @Override
     public StokpopHelloEventContext toContext() {
         List<String> envProps = createEnvProps();
-        return new StokpopHelloEventContext(super.toContext(), myRestService, Duration.ofSeconds(helloInitialSleepSeconds), helloMessage, myCredentials, myEventTags, actuatorBaseUrl, envProps);
+        return new StokpopHelloEventContext(super.toContext(), myRestService, Duration.ofSeconds(helloInitialSleepSeconds), helloMessage, myCredentials, myEventTags, actuatorPropPrefix, actuatorBaseUrl, envProps);
     }
 
     @Override
     public StokpopHelloEventContext toContext(TestContext override) {
         List<String> envProps = createEnvProps();
-        return new StokpopHelloEventContext(super.toContext(override), myRestService, Duration.ofSeconds(helloInitialSleepSeconds), helloMessage, myCredentials, myEventTags, actuatorBaseUrl, envProps);
+        return new StokpopHelloEventContext(super.toContext(override), myRestService, Duration.ofSeconds(helloInitialSleepSeconds), helloMessage, myCredentials, myEventTags, actuatorPropPrefix, actuatorBaseUrl, envProps);
     }
 
     @Override
@@ -84,6 +85,7 @@ public class StokpopHelloEventConfig extends EventConfig {
             ", helloMessage='" + helloMessage + '\'' +
             ", myCredentials='" + myCredentials + '\'' +
             ", myEventTags='" + myEventTags + '\'' +
+            ", actuatorPropPrefix='" + actuatorPropPrefix + '\'' +
             ", actuatorBaseUrl='" + actuatorBaseUrl + '\'' +
             ", actuatorEnvProperties='" + actuatorEnvProperties + '\'' +
             "} " + super.toString();
@@ -103,5 +105,13 @@ public class StokpopHelloEventConfig extends EventConfig {
 
     public void setActuatorEnvProperties(String actuatorEnvProperties) {
         this.actuatorEnvProperties = actuatorEnvProperties;
+    }
+
+    public String getActuatorPropPrefix() {
+        return actuatorPropPrefix;
+    }
+
+    public void setActuatorPropPrefix(String actuatorPropPrefix) {
+        this.actuatorPropPrefix = actuatorPropPrefix;
     }
 }
