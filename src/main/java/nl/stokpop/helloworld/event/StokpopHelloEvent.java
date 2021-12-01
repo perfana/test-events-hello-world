@@ -1,6 +1,26 @@
 package nl.stokpop.helloworld.event;
 
 /*-
+ * #%L
+ * test-events-hello-world
+ * %%
+ * Copyright (C) 2019 - 2021 Stokpop
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
+/*-
  *
  * test-events-hello-world
  *
@@ -20,6 +40,8 @@ package nl.stokpop.helloworld.event;
  *
  */
 
+import nl.stokpop.actuator.ActuatorClient;
+import nl.stokpop.actuator.Variable;
 import nl.stokpop.eventscheduler.api.CustomEvent;
 import nl.stokpop.eventscheduler.api.EventAdapter;
 import nl.stokpop.eventscheduler.api.EventLogger;
@@ -110,12 +132,24 @@ public class StokpopHelloEvent extends EventAdapter<StokpopHelloEventContext> {
 
         String pluginName = StokpopHelloEvent.class.getSimpleName() + "-" + eventContext.getName();
 
-        EventMessage message = EventMessage.builder()
-            .pluginName(pluginName)
+        String actuatorBaseUrl = eventContext.getActuatorBaseUrl();
+
+        List<Variable> variables = new ArrayList<>();
+        if (actuatorBaseUrl != null) {
+            ActuatorClient actuatorClient = new ActuatorClient(actuatorBaseUrl);
+            variables.addAll(actuatorClient.queryActuator(eventContext.getActuatorEnvProperties()));
+        }
+
+        EventMessage.EventMessageBuilder builder = EventMessage.builder();
+
+        builder.pluginName(pluginName)
             .message("Hello there!")
             .variable("perfana-hello-world-message", "Hello World!")
-            .variable("perfana-hello-world-magic-number", "42")
-            .build();
+            .variable("perfana-hello-world-magic-number", "42");
+
+        variables.forEach(v -> builder.variable(v.getName(), v.getValue()));
+
+        EventMessage message = builder.build();
 
         eventMessageBus.send(message);
 
