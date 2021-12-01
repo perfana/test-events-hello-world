@@ -20,7 +20,7 @@ package nl.stokpop.actuator;
  * #L%
  */
 
-import org.junit.Ignore;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class ActuatorClientTest {
 
     @Test
-    @Ignore("only run with actual actuator running")
+    @Disabled("only run with actual actuator running")
     public void testQuery() {
         ActuatorClient actuatorClient = new ActuatorClient("http://localhost:8080/actuator");
 

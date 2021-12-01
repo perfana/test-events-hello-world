@@ -25,11 +25,11 @@ import nl.stokpop.eventscheduler.api.CustomEvent;
 import nl.stokpop.eventscheduler.api.config.TestConfig;
 import nl.stokpop.eventscheduler.api.message.EventMessageBus;
 import nl.stokpop.eventscheduler.log.EventLoggerStdOut;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StokpopHelloEventTest {
 
