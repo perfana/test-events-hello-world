@@ -11,7 +11,7 @@ a generator class with properties.
 
 This event is an `isReadyForStartParticipant`. Only when this event reports
 back a `Go!` message, the event-scheduler is allowed to start.
-It will do so after waiting `helloInitialSleepSeconds` seconds.
+This plugin will sent a `Go!` message after waiting `helloInitialSleepSeconds` seconds.
 
 ## to try it out
 
@@ -66,7 +66,7 @@ For instance add the following:
                         <perfanaUrl>http://localhost:8888</perfanaUrl>
                         <assertResultsEnabled>false</assertResultsEnabled>
                         <variables>
-                            <_var1>my_value</_var1>
+                            <var1>my_value</var1>
                         </variables>
                     </eventConfig>
                 </eventConfigs>
@@ -91,11 +91,12 @@ For instance add the following:
 See also: 
 * https://github.com/stokpop/event-scheduler-maven-plugin
 * https://github.com/stokpop/event-scheduler
-*  
+* https://github.com/perfana/perfana-java-client
 
 ## create your own plugin
 
-Add a dependency to the `event-scheduler` jar, just for compile.
+Add a dependency to the `event-scheduler` jar, just for compile so you can use the api interfaces
+and classes.
 
 Example:
 
@@ -104,7 +105,7 @@ Example:
    <dependency>
        <groupId>nl.stokpop</groupId>
        <artifactId>event-scheduler</artifactId>
-       <version>3.0.0</version>
+       <version>3.0.2</version>
        <scope>compile</scope>
    </dependency>
 </dependencies>
@@ -118,7 +119,34 @@ to implementing `Event` interface. Only implement the method you want to overrid
 
 Create an `*EventConfig` calls for the configuration with only setters.
 Create an immutable `*EventContext` class with only getter.
-In the EventConfig class override the 2 `toContext` methods.
+In the `EventConfig` class override the 2 `toContext` methods.
+
+## actuator client
+
+There is a little bonus inside version 1.2.0+ of this test-events plugin: an
+actuator client that calls an actuator/env endpoint and turns properties
+into variables in an event-scheduler message. The variables in a message
+are picked up by the perfana-java-client and are sent to Perfana for the 
+current test run.
+
+* `actuatorPropPrefix` prefix for the properties to send as variables
+* `actuatorBaseUrl` the base url for the actuator endpoint, `/env` will be added
+* `actuatorEnvProperties` comma seperated list of actuator env properties to turn into variables
+
+Tip: check your http://application/actuator/env to see what is available.
+
+Note: env needs to be enabled in actuator. Be careful though to not expose this endpoint on the internet!
+
+```xml
+<eventConfig implementation="nl.stokpop.helloworld.event.StokpopHelloEventConfig">
+    <name>ActuatorEvent</name>
+    <helloInitialSleepSeconds>0</helloInitialSleepSeconds>
+    <actuatorPropPrefix>my-app</actuatorPropPrefix>
+    <actuatorBaseUrl>http://my-app:8080/actuator</actuatorBaseUrl>
+    <actuatorEnvProperties>java.runtime.version,JDK_JAVA_OPTIONS</actuatorEnvProperties>
+</eventConfig>
+
+```
 
 ## add services files                               
 
