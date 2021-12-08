@@ -30,16 +30,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class ActuatorClientTest {
 
     @Test
-    @Disabled("only run with actual actuator running")
+    @Disabled("only run with actual actuator running on http://localhost:8080/actuator")
     public void testQuery() {
         ActuatorClient actuatorClient = new ActuatorClient("http://localhost:8080/actuator");
 
-        List<Variable> variables = actuatorClient.queryActuator(List.of("java.runtime.version", "JDK_JAVA_OPTIONS"));
+        List<Variable> variables = actuatorClient.queryActuator(List.of("java.runtime.version", "JDK_JAVA_OPTIONS","doesNotExist"));
 
         assertEquals(2, variables.size());
-        assertEquals("java.runtime.version", variables.get(0).getName());
+        assertEquals("systemProperties:java.runtime.version", variables.get(0).getName());
         assertEquals("17.0.1+12-LTS", variables.get(0).getValue());
-        assertEquals("JDK_JAVA_OPTIONS", variables.get(1).getName());
+        assertEquals("systemEnvironment:JDK_JAVA_OPTIONS", variables.get(1).getName());
         assertEquals("-javaagent:/pyroscope.jar", variables.get(1).getValue());
 
     }

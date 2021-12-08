@@ -31,7 +31,10 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ActuatorClient {
 
@@ -66,15 +69,19 @@ public class ActuatorClient {
             ActuatorEnvs envs = gson.fromJson(body, ActuatorEnvs.class);
 
             return envs.propertySources.stream()
-                .flatMap(it -> it.properties.entrySet().stream())
-                .filter(it -> envKeys.contains(it.getKey()))
-                .map(it -> new Variable(it.getKey(), it.getValue().value))
+                .flatMap(propertySource -> filterAndPrefixProperties(propertySource.name, envKeys, propertySource.properties.entrySet()))
                 .collect(Collectors.toList());
 
         } catch (URISyntaxException | IOException | InterruptedException e) {
             throw new RuntimeException("Cannot get " + totalUrl, e);
         }
 
+    }
+
+    private Stream<Variable> filterAndPrefixProperties(String prefix, List<String> propertyNames, Set<Map.Entry<String, Value>> propertiesSet) {
+        return propertiesSet.stream()
+            .filter(entry -> propertyNames.contains(entry.getKey()))
+            .map(entry -> new Variable(prefix + ":" + entry.getKey(), entry.getValue().value));
     }
 
 }
