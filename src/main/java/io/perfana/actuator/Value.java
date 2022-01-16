@@ -1,4 +1,4 @@
-package nl.stokpop.actuator;
+package io.perfana.actuator;
 
 /*-
  * #%L
@@ -20,9 +20,11 @@ package nl.stokpop.actuator;
  * #L%
  */
 
-import java.util.Map;
+public class Value {
+    public String value;
 
-public class PropertySources {
-    public String name;
-    public Map<String, Value> properties;
+    @Override
+    public String toString() {
+        return value;
+    }
 }

@@ -1,4 +1,4 @@
-package nl.stokpop.helloworld.event;
+package io.perfana.helloworld.event;
 
 /*-
  * #%L
@@ -40,22 +40,22 @@ package nl.stokpop.helloworld.event;
  *
  */
 
-import nl.stokpop.actuator.ActuatorClient;
-import nl.stokpop.actuator.Variable;
-import nl.stokpop.eventscheduler.api.CustomEvent;
-import nl.stokpop.eventscheduler.api.EventAdapter;
-import nl.stokpop.eventscheduler.api.EventLogger;
-import nl.stokpop.eventscheduler.api.message.EventMessage;
-import nl.stokpop.eventscheduler.api.message.EventMessageBus;
+import io.perfana.actuator.ActuatorClient;
+import io.perfana.actuator.Variable;
+import io.perfana.eventscheduler.api.CustomEvent;
+import io.perfana.eventscheduler.api.EventAdapter;
+import io.perfana.eventscheduler.api.EventLogger;
+import io.perfana.eventscheduler.api.message.EventMessage;
+import io.perfana.eventscheduler.api.message.EventMessageBus;
 
 import java.time.Duration;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static nl.stokpop.helloworld.event.StokpopHelloEvent.AllowedCustomEvents.*;
+import static io.perfana.helloworld.event.HelloWorldEvent.AllowedCustomEvents.*;
 
-public class StokpopHelloEvent extends EventAdapter<StokpopHelloEventContext> {
+public class HelloWorldEvent extends EventAdapter<HelloWorldEventContext> {
 
     private static final int TO_MB = 1024 * 1024;
 
@@ -96,7 +96,7 @@ public class StokpopHelloEvent extends EventAdapter<StokpopHelloEventContext> {
         //System.getenv().forEach((key, value) -> sayStatic(String.format("env: %s=%s", key, value)));
     }
 
-    public StokpopHelloEvent(StokpopHelloEventContext eventContext, EventMessageBus messageBus, EventLogger logger) {
+    public HelloWorldEvent(HelloWorldEventContext eventContext, EventMessageBus messageBus, EventLogger logger) {
         super(eventContext, messageBus, logger);
         logger.info("Default constructor called.");
         printSystemInfo();
@@ -130,7 +130,7 @@ public class StokpopHelloEvent extends EventAdapter<StokpopHelloEventContext> {
     public void beforeTest() {
         logger.info("Hello before test [" + eventContext.getTestContext().getTestRunId() + "]");
 
-        String pluginName = StokpopHelloEvent.class.getSimpleName() + "-" + eventContext.getName();
+        String pluginName = HelloWorldEvent.class.getSimpleName() + "-" + eventContext.getName();
 
         String actuatorBaseUrl = eventContext.getActuatorBaseUrl();
 
@@ -250,6 +250,6 @@ public class StokpopHelloEvent extends EventAdapter<StokpopHelloEventContext> {
     }
 
     private static void sayStatic(String something) {
-        System.out.printf("[%s] %s%n", StokpopHelloEvent.class.getSimpleName(), something);
+        System.out.printf("[%s] %s%n", HelloWorldEvent.class.getSimpleName(), something);
     }
 }

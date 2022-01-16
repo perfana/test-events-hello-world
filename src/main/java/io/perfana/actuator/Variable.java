@@ -1,4 +1,4 @@
-package nl.stokpop.actuator;
+package io.perfana.actuator;
 
 /*-
  * #%L
@@ -20,7 +20,21 @@ package nl.stokpop.actuator;
  * #L%
  */
 
-public class Property {
-    public String key;
-    public String value;
+public class Variable {
+    private String name;
+    private String value;
+
+    Variable(String name, String value) {
+        this.name = name;
+        this.value = value;
+    }
+
+
+    public String getName() {
+        return name;
+    }
+
+    public String getValue() {
+        return value;
+    }
 }

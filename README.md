@@ -3,10 +3,10 @@
 This project shows an example implementation of the `Event` interface
 and the `EventGenerator` interface.
 
-The `StokpopHelloEvent` shows when events are called in `System.out`.
+The `HelloWorldEvent` shows when events are called in `System.out`.
 It also prints out some system information at the start.
 
-The `StokpopEventGenerator` shows how to create a custom list of events from
+The `HelloWorldEventGenerator` shows how to create a custom list of events from
 a generator class with properties.
 
 This event is an `isReadyForStartParticipant`. Only when this event reports
@@ -25,7 +25,7 @@ For instance add the following:
 ```xml
 <plugins>
     <plugin>
-        <groupId>nl.stokpop</groupId>
+        <groupId>io.perfana</groupId>
         <artifactId>event-scheduler-maven-plugin</artifactId>
         <configuration>
             <eventSchedulerConfig>
@@ -55,8 +55,8 @@ For instance add the following:
                     ${eventScheduleScript}
                 </scheduleScript>
                 <eventConfigs>
-                    <eventConfig implementation="nl.stokpop.helloworld.event.StokpopHelloEventConfig">
-                        <name>StokpopHelloEvent1</name>
+                    <eventConfig implementation="io.perfana.helloworld.event.HelloWorldEventConfig">
+                        <name>HelloWorldEvent1</name>
                         <helloInitialSleepSeconds>40</helloInitialSleepSeconds>
                         <myRestService>https://my-rest-api</myRestService>
                         <myCredentials>${ENV.SECRET}</myCredentials>
@@ -74,7 +74,7 @@ For instance add the following:
         </configuration>
         <dependencies>
             <dependency>
-                <groupId>nl.stokpop</groupId>
+                <groupId>io.perfana</groupId>
                 <artifactId>test-events-hello-world</artifactId>
                 <version>${test-events-hello-world.version}</version>
             </dependency>
@@ -89,8 +89,8 @@ For instance add the following:
 ```
 
 See also: 
-* https://github.com/stokpop/event-scheduler-maven-plugin
-* https://github.com/stokpop/event-scheduler
+* https://github.com/perfana/event-scheduler-maven-plugin
+* https://github.com/perfana/event-scheduler
 * https://github.com/perfana/perfana-java-client
 
 ## create your own plugin
@@ -103,7 +103,7 @@ Example:
 ```xml
 <dependencies>
    <dependency>
-       <groupId>nl.stokpop</groupId>
+       <groupId>io.perfana</groupId>
        <artifactId>event-scheduler</artifactId>
        <version>3.0.2</version>
        <scope>compile</scope>
@@ -138,7 +138,7 @@ Tip: check your http://application/actuator/env to see what is available.
 Note: env needs to be enabled in actuator. Be careful though to not expose this endpoint on the internet!
 
 ```xml
-<eventConfig implementation="nl.stokpop.helloworld.event.StokpopHelloEventConfig">
+<eventConfig implementation="io.perfana.helloworld.event.HelloWorldEventConfig">
     <name>ActuatorEvent</name>
     <helloInitialSleepSeconds>0</helloInitialSleepSeconds>
     <actuatorPropPrefix>my-app</actuatorPropPrefix>
@@ -154,12 +154,12 @@ The magic happens when you add the appropriate file
 in `META-INF/services`. See the sample in this project.
 
 You need to specify the fully qualified name of your implementation
-(e.g. `nl.stokpop.helloworld.event.StokpopHelloEventFactory`) 
-in a file called `nl.stokpop.eventscheduler.api.EventFactory`. 
+(e.g. `io.perfana.helloworld.event.HelloWorldEventFactory`) 
+in a file called `io.perfana.eventscheduler.api.EventFactory`. 
 
 And for the event schedule generators use
-(e.g. `nl.stokpop.helloworld.event.StokpopEventGeneratorFactory`) 
-a file called `nl.stokpop.eventscheduler.api.EventGeneratorFactory`.
+(e.g. `io.perfana.helloworld.event.HelloWorldEventGeneratorFactory`) 
+a file called `io.perfana.eventscheduler.api.EventGeneratorFactory`.
 
 Note that both can contain multiple lines with different implementations.
  

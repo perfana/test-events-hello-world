@@ -1,4 +1,4 @@
-package nl.stokpop.actuator;
+package io.perfana.actuator;
 
 /*-
  * #%L

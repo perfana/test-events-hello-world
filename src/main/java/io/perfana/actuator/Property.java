@@ -1,4 +1,4 @@
-package nl.stokpop.actuator;
+package io.perfana.actuator;
 
 /*-
  * #%L
@@ -20,11 +20,7 @@ package nl.stokpop.actuator;
  * #L%
  */
 
-public class Value {
+public class Property {
+    public String key;
     public String value;
-
-    @Override
-    public String toString() {
-        return value;
-    }
 }

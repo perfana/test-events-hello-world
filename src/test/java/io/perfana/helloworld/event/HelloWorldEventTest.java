@@ -1,4 +1,4 @@
-package nl.stokpop.helloworld.event;
+package io.perfana.helloworld.event;
 
 /*-
  * #%L
@@ -20,31 +20,31 @@ package nl.stokpop.helloworld.event;
  * #L%
  */
 
-import nl.stokpop.eventscheduler.EventMessageBusSimple;
-import nl.stokpop.eventscheduler.api.CustomEvent;
-import nl.stokpop.eventscheduler.api.config.TestConfig;
-import nl.stokpop.eventscheduler.api.message.EventMessageBus;
-import nl.stokpop.eventscheduler.log.EventLoggerStdOut;
+import io.perfana.eventscheduler.EventMessageBusSimple;
+import io.perfana.eventscheduler.api.CustomEvent;
+import io.perfana.eventscheduler.api.config.TestConfig;
+import io.perfana.eventscheduler.api.message.EventMessageBus;
+import io.perfana.eventscheduler.log.EventLoggerStdOut;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class StokpopHelloEventTest {
+public class HelloWorldEventTest {
 
     @Test
     public void beforeTest() {
-        StokpopHelloEventConfig stokpopHelloEventConfig = new StokpopHelloEventConfig();
-        stokpopHelloEventConfig.setEventFactory(StokpopHelloEventFactory.class.getSimpleName());
-        stokpopHelloEventConfig.setHelloMessage("hello");
-        stokpopHelloEventConfig.setName("myEvent1");
-        stokpopHelloEventConfig.setEnabled(true);
-        stokpopHelloEventConfig.setTestConfig(TestConfig.builder().build());
+        HelloWorldEventConfig helloWorldEventConfig = new HelloWorldEventConfig();
+        helloWorldEventConfig.setEventFactory(HelloWorldEventFactory.class.getSimpleName());
+        helloWorldEventConfig.setHelloMessage("hello");
+        helloWorldEventConfig.setName("myEvent1");
+        helloWorldEventConfig.setEnabled(true);
+        helloWorldEventConfig.setTestConfig(TestConfig.builder().build());
 
         EventMessageBus messageBus = new EventMessageBusSimple();
 
-        StokpopHelloEvent event = new StokpopHelloEvent(stokpopHelloEventConfig.toContext(), messageBus, EventLoggerStdOut.INSTANCE);
+        HelloWorldEvent event = new HelloWorldEvent(helloWorldEventConfig.toContext(), messageBus, EventLoggerStdOut.INSTANCE);
         event.beforeTest();
         event.keepAlive();
         event.customEvent(CustomEvent.createFromLine("PT3S|fail-over|debug=true;server=test"));
@@ -59,20 +59,20 @@ public class StokpopHelloEventTest {
 
     @Test
     public void parseSettingsZero() {
-        Map<String, String> emptyMap = StokpopHelloEvent.parseSettings("");
+        Map<String, String> emptyMap = HelloWorldEvent.parseSettings("");
         assertEquals(0, emptyMap.size());
     }
 
     @Test
     public void parseSettingsOne() {
-        Map<String, String> emptyMap = StokpopHelloEvent.parseSettings("foo=bar");
+        Map<String, String> emptyMap = HelloWorldEvent.parseSettings("foo=bar");
         assertEquals(1, emptyMap.size());
         assertEquals("bar", emptyMap.get("foo"));
     }
 
     @Test
     public void parseSettingsTwo() {
-        Map<String, String> emptyMap = StokpopHelloEvent.parseSettings("foo=bar;name=stokpop");
+        Map<String, String> emptyMap = HelloWorldEvent.parseSettings("foo=bar;name=stokpop");
         assertEquals(2, emptyMap.size());
         assertEquals("bar", emptyMap.get("foo"));
         assertEquals("stokpop", emptyMap.get("name"));
@@ -80,7 +80,7 @@ public class StokpopHelloEventTest {
 
     @Test
     public void parseSettingsNoValue() {
-        Map<String, String> emptyMap = StokpopHelloEvent.parseSettings("foo=bar;name");
+        Map<String, String> emptyMap = HelloWorldEvent.parseSettings("foo=bar;name");
         assertEquals(2,emptyMap.size());
         assertEquals("bar", emptyMap.get("foo"));
         assertEquals("", emptyMap.get("name"));
@@ -88,7 +88,7 @@ public class StokpopHelloEventTest {
 
     @Test
     public void parseSettingsNoEntry() {
-        Map<String, String> emptyMap = StokpopHelloEvent.parseSettings("foo=bar;");
+        Map<String, String> emptyMap = HelloWorldEvent.parseSettings("foo=bar;");
         assertEquals(1,emptyMap.size());
         assertEquals("bar", emptyMap.get("foo"));
     }

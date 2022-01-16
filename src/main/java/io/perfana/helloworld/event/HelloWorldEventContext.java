@@ -1,4 +1,4 @@
-package nl.stokpop.helloworld.event;
+package io.perfana.helloworld.event;
 
 /*-
  * #%L
@@ -20,14 +20,14 @@ package nl.stokpop.helloworld.event;
  * #L%
  */
 
+import io.perfana.eventscheduler.api.config.EventContext;
 import net.jcip.annotations.Immutable;
-import nl.stokpop.eventscheduler.api.config.EventContext;
 
 import java.time.Duration;
 import java.util.List;
 
 @Immutable
-public class StokpopHelloEventContext extends EventContext {
+public class HelloWorldEventContext extends EventContext {
 
     private final String myRestService;
     private final Duration helloInitialSleep;
@@ -38,8 +38,8 @@ public class StokpopHelloEventContext extends EventContext {
     private final String actuatorBaseUrl;
     private final List<String> actuatorEnvProps;
 
-    protected StokpopHelloEventContext(EventContext context, String myRestService, Duration helloInitialSleep, String helloMessage, String myCredentials, String myEventTags, String actuatorPropPrefix, String actuatorBaseUrl, List<String> actuatorEnvProps) {
-        super(context, StokpopHelloEventFactory.class.getName(), true);
+    protected HelloWorldEventContext(EventContext context, String myRestService, Duration helloInitialSleep, String helloMessage, String myCredentials, String myEventTags, String actuatorPropPrefix, String actuatorBaseUrl, List<String> actuatorEnvProps) {
+        super(context, HelloWorldEventFactory.class.getName(), true);
         this.myRestService = myRestService;
         this.helloInitialSleep = helloInitialSleep;
         this.helloMessage = helloMessage;

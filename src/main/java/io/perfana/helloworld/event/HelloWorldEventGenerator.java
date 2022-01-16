@@ -1,4 +1,4 @@
-package nl.stokpop.helloworld.event;
+package io.perfana.helloworld.event;
 
 /*-
  * #%L
@@ -39,10 +39,10 @@ package nl.stokpop.helloworld.event;
  * 
  */
 
-import nl.stokpop.eventscheduler.api.CustomEvent;
-import nl.stokpop.eventscheduler.api.EventGenerator;
-import nl.stokpop.eventscheduler.api.EventGeneratorProperties;
-import nl.stokpop.eventscheduler.api.EventLogger;
+import io.perfana.eventscheduler.api.CustomEvent;
+import io.perfana.eventscheduler.api.EventGenerator;
+import io.perfana.eventscheduler.api.EventGeneratorProperties;
+import io.perfana.eventscheduler.api.EventLogger;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -50,13 +50,13 @@ import java.util.List;
 
 import static java.time.temporal.ChronoUnit.SECONDS;
 
-public class StokpopEventGenerator implements EventGenerator {
+public class HelloWorldEventGenerator implements EventGenerator {
 
     private static final String INPUT_FILE_TAG = "input-file";
     private final EventLogger logger;
     private final EventGeneratorProperties properties;
 
-    StokpopEventGenerator(EventGeneratorProperties properties, EventLogger logger) {
+    HelloWorldEventGenerator(EventGeneratorProperties properties, EventLogger logger) {
         this.properties = properties;
         this.logger = logger;
     }

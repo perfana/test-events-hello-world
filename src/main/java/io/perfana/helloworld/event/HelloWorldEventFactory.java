@@ -1,4 +1,4 @@
-package nl.stokpop.helloworld.event;
+package io.perfana.helloworld.event;
 
 /*-
  * #%L
@@ -40,15 +40,15 @@ package nl.stokpop.helloworld.event;
  * 
  */
 
-import nl.stokpop.eventscheduler.api.Event;
-import nl.stokpop.eventscheduler.api.EventFactory;
-import nl.stokpop.eventscheduler.api.EventLogger;
-import nl.stokpop.eventscheduler.api.message.EventMessageBus;
+import io.perfana.eventscheduler.api.Event;
+import io.perfana.eventscheduler.api.EventFactory;
+import io.perfana.eventscheduler.api.EventLogger;
+import io.perfana.eventscheduler.api.message.EventMessageBus;
 
-public class StokpopHelloEventFactory implements EventFactory<StokpopHelloEventContext> {
+public class HelloWorldEventFactory implements EventFactory<HelloWorldEventContext> {
 
     @Override
-    public Event create(StokpopHelloEventContext context, EventMessageBus messageBus, EventLogger eventLogger) {
-        return new StokpopHelloEvent(context, messageBus, eventLogger);
+    public Event create(HelloWorldEventContext context, EventMessageBus messageBus, EventLogger eventLogger) {
+        return new HelloWorldEvent(context, messageBus, eventLogger);
     }
 }

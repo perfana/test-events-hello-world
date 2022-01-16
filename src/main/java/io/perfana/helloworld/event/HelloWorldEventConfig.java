@@ -1,4 +1,4 @@
-package nl.stokpop.helloworld.event;
+package io.perfana.helloworld.event;
 
 /*-
  * #%L
@@ -20,9 +20,9 @@ package nl.stokpop.helloworld.event;
  * #L%
  */
 
+import io.perfana.eventscheduler.api.config.EventConfig;
+import io.perfana.eventscheduler.api.config.TestContext;
 import net.jcip.annotations.NotThreadSafe;
-import nl.stokpop.eventscheduler.api.config.EventConfig;
-import nl.stokpop.eventscheduler.api.config.TestContext;
 
 import java.time.Duration;
 import java.util.Arrays;
@@ -30,7 +30,7 @@ import java.util.Collections;
 import java.util.List;
 
 @NotThreadSafe
-public class StokpopHelloEventConfig extends EventConfig {
+public class HelloWorldEventConfig extends EventConfig {
 
     private String myRestService;
     private int helloInitialSleepSeconds = 4;
@@ -66,15 +66,15 @@ public class StokpopHelloEventConfig extends EventConfig {
     }
 
     @Override
-    public StokpopHelloEventContext toContext() {
+    public HelloWorldEventContext toContext() {
         List<String> envProps = createEnvProps();
-        return new StokpopHelloEventContext(super.toContext(), myRestService, Duration.ofSeconds(helloInitialSleepSeconds), helloMessage, myCredentials, myEventTags, actuatorPropPrefix, actuatorBaseUrl, envProps);
+        return new HelloWorldEventContext(super.toContext(), myRestService, Duration.ofSeconds(helloInitialSleepSeconds), helloMessage, myCredentials, myEventTags, actuatorPropPrefix, actuatorBaseUrl, envProps);
     }
 
     @Override
-    public StokpopHelloEventContext toContext(TestContext override) {
+    public HelloWorldEventContext toContext(TestContext override) {
         List<String> envProps = createEnvProps();
-        return new StokpopHelloEventContext(super.toContext(override), myRestService, Duration.ofSeconds(helloInitialSleepSeconds), helloMessage, myCredentials, myEventTags, actuatorPropPrefix, actuatorBaseUrl, envProps);
+        return new HelloWorldEventContext(super.toContext(override), myRestService, Duration.ofSeconds(helloInitialSleepSeconds), helloMessage, myCredentials, myEventTags, actuatorPropPrefix, actuatorBaseUrl, envProps);
     }
 
     @Override
