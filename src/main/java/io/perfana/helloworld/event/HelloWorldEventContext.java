@@ -4,7 +4,7 @@ package io.perfana.helloworld.event;
  * #%L
  * test-events-hello-world
  * %%
- * Copyright (C) 2019 - 2021 Stokpop
+ * Copyright (C) 2019 - 2022 Perfana
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -72,7 +72,7 @@ public class HelloWorldEventContext extends EventContext {
 
     @Override
     public String toString() {
-        return "StokpopHelloEventConfig{" +
+        return "HelloWorldEventConfig{" +
             "myRestService='" + myRestService + '\'' +
             ", helloInitialSleep=" + helloInitialSleep +
             ", helloMessage='" + helloMessage + '\'' +

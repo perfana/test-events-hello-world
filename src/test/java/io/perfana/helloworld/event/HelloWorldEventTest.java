@@ -4,7 +4,7 @@ package io.perfana.helloworld.event;
  * #%L
  * test-events-hello-world
  * %%
- * Copyright (C) 2019 Stokpop
+ * Copyright (C) 2019-2022 Perfana
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -72,10 +72,10 @@ public class HelloWorldEventTest {
 
     @Test
     public void parseSettingsTwo() {
-        Map<String, String> emptyMap = HelloWorldEvent.parseSettings("foo=bar;name=stokpop");
+        Map<String, String> emptyMap = HelloWorldEvent.parseSettings("foo=bar;name=perfana");
         assertEquals(2, emptyMap.size());
         assertEquals("bar", emptyMap.get("foo"));
-        assertEquals("stokpop", emptyMap.get("name"));
+        assertEquals("perfana", emptyMap.get("name"));
     }
 
     @Test
