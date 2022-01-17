@@ -51,9 +51,6 @@ For instance add the following:
                     <annotations>${annotations}</annotations>
                     <tags>${tags}</tags>
                 </testConfig>
-                <scheduleScript>
-                    ${eventScheduleScript}
-                </scheduleScript>
                 <eventConfigs>
                     <eventConfig implementation="io.perfana.helloworld.event.HelloWorldEventConfig">
                         <name>HelloWorldEvent1</name>
