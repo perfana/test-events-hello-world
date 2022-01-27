@@ -20,8 +20,6 @@ package io.perfana.helloworld.event;
  * #L%
  */
 
-import io.perfana.actuator.ActuatorClient;
-import io.perfana.actuator.Variable;
 import io.perfana.eventscheduler.api.CustomEvent;
 import io.perfana.eventscheduler.api.EventAdapter;
 import io.perfana.eventscheduler.api.EventLogger;
@@ -112,24 +110,12 @@ public class HelloWorldEvent extends EventAdapter<HelloWorldEventContext> {
 
         String pluginName = HelloWorldEvent.class.getSimpleName() + "-" + eventContext.getName();
 
-        String actuatorBaseUrl = eventContext.getActuatorBaseUrl();
-
-        List<Variable> variables = new ArrayList<>();
-        if (actuatorBaseUrl != null) {
-            ActuatorClient actuatorClient = new ActuatorClient(actuatorBaseUrl);
-            variables.addAll(actuatorClient.queryActuator(eventContext.getActuatorEnvProperties()));
-        }
-
         EventMessage.EventMessageBuilder builder = EventMessage.builder();
 
         builder.pluginName(pluginName)
             .message("Hello there!")
             .variable("perfana-hello-world-message", "Hello World!")
             .variable("perfana-hello-world-magic-number", "42");
-
-        String actuatorPropPrefix = eventContext.getActuatorPropPrefix();
-
-        variables.forEach(v -> builder.variable(actuatorPropPrefix + "-" + v.getName(), v.getValue()));
 
         EventMessage message = builder.build();
 

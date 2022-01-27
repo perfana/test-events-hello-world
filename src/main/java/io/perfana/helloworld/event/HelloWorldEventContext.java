@@ -34,9 +34,6 @@ public class HelloWorldEventContext extends EventContext {
     private final String helloMessage;
     private final String myCredentials;
     private final String myEventTags;
-    private final String actuatorPropPrefix;
-    private final String actuatorBaseUrl;
-    private final List<String> actuatorEnvProps;
 
     protected HelloWorldEventContext(EventContext context, String myRestService, Duration helloInitialSleep, String helloMessage, String myCredentials, String myEventTags, String actuatorPropPrefix, String actuatorBaseUrl, List<String> actuatorEnvProps) {
         super(context, HelloWorldEventFactory.class.getName(), true);
@@ -45,9 +42,6 @@ public class HelloWorldEventContext extends EventContext {
         this.helloMessage = helloMessage;
         this.myCredentials = myCredentials;
         this.myEventTags = myEventTags;
-        this.actuatorPropPrefix = actuatorPropPrefix;
-        this.actuatorBaseUrl = actuatorBaseUrl;
-        this.actuatorEnvProps = actuatorEnvProps;
     }
 
     public String getMyRestService() {
@@ -78,20 +72,7 @@ public class HelloWorldEventContext extends EventContext {
             ", helloMessage='" + helloMessage + '\'' +
             ", myCredentials='" + myCredentials + '\'' +
             ", myEventTags='" + myEventTags + '\'' +
-            ", actuatorPropPrefix='" + actuatorPropPrefix + '\'' +
-            ", actuatorBaseUrl='" + actuatorBaseUrl + '\'' +
-            ", actuatorEnvProperties='" + actuatorEnvProps + '\'' +
             "} " + super.toString();
     }
 
-    public String getActuatorBaseUrl() {
-        return actuatorBaseUrl;
-    }
-    public String getActuatorPropPrefix() {
-        return actuatorPropPrefix;
-    }
-
-    public List<String> getActuatorEnvProperties() {
-        return actuatorEnvProps;
-    }
 }
