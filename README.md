@@ -118,33 +118,6 @@ Create an `*EventConfig` calls for the configuration with only setters.
 Create an immutable `*EventContext` class with only getter.
 In the `EventConfig` class override the 2 `toContext` methods.
 
-## actuator client
-
-There is a little bonus inside version 1.2.0+ of this test-events plugin: an
-actuator client that calls an actuator/env endpoint and turns properties
-into variables in an event-scheduler message. The variables in a message
-are picked up by the perfana-java-client and are sent to Perfana for the 
-current test run.
-
-* `actuatorPropPrefix` prefix for the properties to send as variables
-* `actuatorBaseUrl` the base url for the actuator endpoint, `/env` will be added
-* `actuatorEnvProperties` comma seperated list of actuator env properties to turn into variables
-
-Tip: check your http://application/actuator/env to see what is available.
-
-Note: env needs to be enabled in actuator. Be careful though to not expose this endpoint on the internet!
-
-```xml
-<eventConfig implementation="io.perfana.helloworld.event.HelloWorldEventConfig">
-    <name>ActuatorEvent</name>
-    <helloInitialSleepSeconds>0</helloInitialSleepSeconds>
-    <actuatorPropPrefix>my-app</actuatorPropPrefix>
-    <actuatorBaseUrl>http://my-app:8080/actuator</actuatorBaseUrl>
-    <actuatorEnvProperties>java.runtime.version,JDK_JAVA_OPTIONS</actuatorEnvProperties>
-</eventConfig>
-
-```
-
 ## add services files                               
 
 The magic happens when you add the appropriate file
