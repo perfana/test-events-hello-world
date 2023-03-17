@@ -18,6 +18,7 @@ package io.perfana.helloworld.event;
 import io.perfana.eventscheduler.api.CustomEvent;
 import io.perfana.eventscheduler.api.EventAdapter;
 import io.perfana.eventscheduler.api.EventLogger;
+import io.perfana.eventscheduler.api.config.TestContext;
 import io.perfana.eventscheduler.api.message.EventMessage;
 import io.perfana.eventscheduler.api.message.EventMessageBus;
 
@@ -69,8 +70,8 @@ public class HelloWorldEvent extends EventAdapter<HelloWorldEventContext> {
         //System.getenv().forEach((key, value) -> sayStatic(String.format("env: %s=%s", key, value)));
     }
 
-    public HelloWorldEvent(HelloWorldEventContext eventContext, EventMessageBus messageBus, EventLogger logger) {
-        super(eventContext, messageBus, logger);
+    public HelloWorldEvent(HelloWorldEventContext eventContext, TestContext testContext, EventMessageBus messageBus, EventLogger logger) {
+        super(eventContext, testContext, messageBus, logger);
         logger.info("Default constructor called.");
         printSystemInfo();
 
@@ -101,7 +102,7 @@ public class HelloWorldEvent extends EventAdapter<HelloWorldEventContext> {
 
     @Override
     public void beforeTest() {
-        logger.info("Hello before test [" + eventContext.getTestContext().getTestRunId() + "]");
+        logger.info("Hello before test [" + testContext.getTestRunId() + "]");
 
         String pluginName = HelloWorldEvent.class.getSimpleName() + "-" + eventContext.getName();
 
@@ -134,12 +135,12 @@ public class HelloWorldEvent extends EventAdapter<HelloWorldEventContext> {
 
     @Override
     public void afterTest() {
-        logger.info("Hello after test [" + eventContext.getTestContext().getTestRunId() + "]");
+        logger.info("Hello after test [" + testContext.getTestRunId() + "]");
     }
     
     @Override
     public void keepAlive() {
-        logger.info("Hello keep alive for test [" + eventContext.getTestContext().getTestRunId() + "]");
+        logger.info("Hello keep alive for test [" + testContext.getTestRunId() + "]");
     }
 
     @Override
@@ -193,12 +194,12 @@ public class HelloWorldEvent extends EventAdapter<HelloWorldEventContext> {
     }
 
     private void scaleDownEvent(CustomEvent scheduleEvent) {
-        logger.info("dispatched scale-down event for test [" + eventContext.getTestContext().getTestRunId() + "] with settings [" + scheduleEvent.getSettings() + "]");
+        logger.info("dispatched scale-down event for test [" + testContext.getTestRunId() + "] with settings [" + scheduleEvent.getSettings() + "]");
     }
 
     private void failOverEvent(CustomEvent scheduleEvent) {
         Map<String, String> parsedSettings = parseSettings(scheduleEvent.getSettings());
-        logger.info("dispatched fail-over event for test [" + eventContext.getTestContext().getTestRunId() + "] with parsed settings: " + parsedSettings);
+        logger.info("dispatched fail-over event for test [" + testContext.getTestRunId() + "] with parsed settings: " + parsedSettings);
     }
 
     static Map<String, String> parseSettings(String eventSettings) {

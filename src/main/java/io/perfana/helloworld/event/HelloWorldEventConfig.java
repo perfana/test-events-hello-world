@@ -67,12 +67,6 @@ public class HelloWorldEventConfig extends EventConfig {
     }
 
     @Override
-    public HelloWorldEventContext toContext(TestContext override) {
-        List<String> envProps = createEnvProps();
-        return new HelloWorldEventContext(super.toContext(override), myRestService, Duration.ofSeconds(helloInitialSleepSeconds), helloMessage, myCredentials, myEventTags, actuatorPropPrefix, actuatorBaseUrl, envProps);
-    }
-
-    @Override
     public String toString() {
         return "HelloWorldEventConfig{" +
             "myRestService='" + myRestService + '\'' +

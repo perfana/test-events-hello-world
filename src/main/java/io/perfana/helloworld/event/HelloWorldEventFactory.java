@@ -18,12 +18,13 @@ package io.perfana.helloworld.event;
 import io.perfana.eventscheduler.api.Event;
 import io.perfana.eventscheduler.api.EventFactory;
 import io.perfana.eventscheduler.api.EventLogger;
+import io.perfana.eventscheduler.api.config.TestContext;
 import io.perfana.eventscheduler.api.message.EventMessageBus;
 
 public class HelloWorldEventFactory implements EventFactory<HelloWorldEventContext> {
 
     @Override
-    public Event create(HelloWorldEventContext context, EventMessageBus messageBus, EventLogger eventLogger) {
-        return new HelloWorldEvent(context, messageBus, eventLogger);
+    public Event create(HelloWorldEventContext context, TestContext testContext, EventMessageBus messageBus, EventLogger eventLogger) {
+        return new HelloWorldEvent(context, testContext, messageBus, eventLogger);
     }
 }

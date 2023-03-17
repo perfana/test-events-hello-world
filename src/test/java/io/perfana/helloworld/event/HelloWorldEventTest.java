@@ -18,6 +18,7 @@ package io.perfana.helloworld.event;
 import io.perfana.eventscheduler.EventMessageBusSimple;
 import io.perfana.eventscheduler.api.CustomEvent;
 import io.perfana.eventscheduler.api.config.TestConfig;
+import io.perfana.eventscheduler.api.config.TestContext;
 import io.perfana.eventscheduler.api.message.EventMessageBus;
 import io.perfana.eventscheduler.log.EventLoggerStdOut;
 import org.junit.jupiter.api.Test;
@@ -35,11 +36,11 @@ public class HelloWorldEventTest {
         helloWorldEventConfig.setHelloMessage("hello");
         helloWorldEventConfig.setName("myEvent1");
         helloWorldEventConfig.setEnabled(true);
-        helloWorldEventConfig.setTestConfig(TestConfig.builder().build());
 
         EventMessageBus messageBus = new EventMessageBusSimple();
 
-        HelloWorldEvent event = new HelloWorldEvent(helloWorldEventConfig.toContext(), messageBus, EventLoggerStdOut.INSTANCE);
+        TestContext testContext = TestConfig.builder().build().toContext();
+        HelloWorldEvent event = new HelloWorldEvent(helloWorldEventConfig.toContext(), testContext, messageBus, EventLoggerStdOut.INSTANCE);
         event.beforeTest();
         event.keepAlive();
         event.customEvent(CustomEvent.createFromLine("PT3S|fail-over|debug=true;server=test"));
