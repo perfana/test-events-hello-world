@@ -23,7 +23,7 @@
 
     <groupId>io.perfana</groupId>
     <artifactId>test-events-hello-world</artifactId>
-    <version>3.0.0</version>
+    <version>3.0.1-SNAPSHOT</version>
     <description>Some basic event-scheduler events, useful for testing and getting info.</description>
     <packaging>jar</packaging>
 
